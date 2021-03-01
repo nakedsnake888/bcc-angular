@@ -1,0 +1,71 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ cliente.nome }}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p *ngIf="cliente.confermato === true">
+    Il tuo Codice è: {{ cliente.codice }}
+  </p>
+  <table
+    class="table table-borderless table-sm"
+    *ngIf="cliente.confermato !== true"
+  >
+    <thead>
+      <tr>
+        <th>Campo</th>
+        <th class="text-center">Valore</th>
+        <th class="text-right">Checked</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let el of keysNoCheck">
+        <td>{{ el.label }}</td>
+        <td class="text-center">{{ cliente[el.path] }}</td>
+        <td></td>
+      </tr>
+      <tr *ngFor="let el of keysCheck">
+        <td>
+          {{ el.label }}
+        </td>
+        <td class="text-center" *ngIf="el.icon === undefined">
+          <fa-icon [icon]="cliente[el.path] ? faCheck : faTimes"></fa-icon>
+        </td>
+        <td class="text-center" *ngIf="el.icon === false">
+          {{ cliente[el.path] }}
+        </td>
+        <td class="text-right">
+          <div class="form-check">
+            <input
+              class="form-check-input position-static"
+              type="checkbox"
+              id="blankCheckbox"
+              [checked]="item[el.path].checked"
+              (change)="item[el.path].checked = !item[el.path].checked"
+            />
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div
+  class="modal-footer"
+  [ngClass]="{ modificato: cliente.confermato !== true }"
+>
+  <div class="alert alert-info shadow" role="alert" *ngIf="conferma">
+    Sei sicuro di voler confermare?
+  </div>
+  <button
+    type="button"
+    class="btn btn-primary shadow ml-3"
+    (click)="controllo()"
+    *ngIf="cliente.confermato !== true"
+  >
+    Salva
+  </button>
+  <button type="button" class="btn btn-success shadow" (click)="close()">
+    Close
+  </button>
+</div>

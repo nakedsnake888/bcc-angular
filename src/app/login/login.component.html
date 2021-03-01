@@ -1,0 +1,70 @@
+<div class="bg-blue image" style="height: 100vh">
+  <div class="container h-100">
+    <div class="row h-100">
+      <div class="col-6 m-auto">
+        <div class="card shadow">
+          <img
+            src="/assets/BCC-transparent.png"
+            width="240"
+            height="240"
+            class="rounded mx-auto d-block"
+            alt=""
+          />
+          <div class="card-body">
+            <h1 class="card-title text-center">Login</h1>
+            <div class="card-text">
+              <form>
+                <label for="username">Username</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text bg-primary">
+                      <fa-icon [icon]="faUser" class="white"></fa-icon>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Inserisci Username..."
+                    aria-label="Username"
+                    aria-describedby="basic-addon1"
+                    name="username"
+                    [(ngModel)]="credentials.username"
+                  />
+                </div>
+
+                <label for="password">Password</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text bg-primary">
+                      <fa-icon [icon]="faKey" class="white"></fa-icon>
+                    </div>
+                  </div>
+                  <input
+                    type="password"
+                    class="form-control"
+                    placeholder="Inserisci Password..."
+                    aria-label="Password"
+                    aria-describedby="basic-addon1"
+                    name="password"
+                    [(ngModel)]="credentials.password"
+                  />
+                </div>
+
+                <div class="mb-3"></div>
+                <div class="mb-3 text-center">
+                  <button
+                    type="button"
+                    class="btn btn-primary shadow"
+                    (click)="login()"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

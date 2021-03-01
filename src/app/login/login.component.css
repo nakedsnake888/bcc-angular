@@ -1,0 +1,13 @@
+.white {
+  color: white;
+}
+
+.image {
+  background-size: 150px;
+  background-image: url('src/assets/BCC-transparent.png');
+  background-position: center;
+}
+
+.shw {
+  filter: drop-shadow(0 0 0 rgb(0, 0, 0));
+}

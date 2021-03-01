@@ -1,0 +1,17 @@
+<br />
+<app-ricerca-form (childEvent)="getClienti($event)"></app-ricerca-form>
+
+<br />
+
+<app-ricerca-table [pageSize]="pageSize" [page]="page"></app-ricerca-table>
+
+<br />
+
+<ngb-pagination
+  *ngIf="serv.clienti.length > pageSize"
+  [collectionSize]="serv.clienti.length"
+  [pageSize]="pageSize"
+  [(page)]="page"
+  aria-label="Default pagination"
+  class="d-flex justify-content-center"
+></ngb-pagination>

@@ -1,0 +1,153 @@
+<div class="container">
+  <div class="row">
+    <div class="col-auto">
+      <div class="form-group" [formGroup]="form">
+        <label for="filiale">Filiale</label>
+        <select class="form-control" formControlName="filiale" id="filiale">
+          <option
+            *ngIf="
+              form.controls['filiale'].invalid &&
+              (!form.controls['filiale'].dirty ||
+                !form.controls['filiale'].touched)
+            "
+            value="-1"
+            disabled
+          >
+            Seleziona una filiale...
+          </option>
+          <option *ngFor="let filiale of filiali" [value]="filiale.id">
+            {{ filiale.nome }}
+          </option>
+        </select>
+
+        <div
+          *ngIf="
+            form.controls['filiale'].invalid &&
+            (form.controls['filiale'].dirty || form.controls['filiale'].touched)
+          "
+          class="alert alert-danger error"
+        >
+          <div *ngIf="form.controls['filiale'].errors.required">
+            Campo Filiale obbligatorio.
+          </div>
+          <div *ngIf="form.controls['filiale'].errors.min">
+            Seleziona una filiale.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="form-group" [formGroup]="form">
+        <label for="nag">Nag</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nag"
+          id="nag"
+          name="nag"
+        />
+
+        <div
+          *ngIf="
+            form.controls['nag'].invalid &&
+            (form.controls['nag'].dirty || form.controls['nag'].touched)
+          "
+          class="alert alert-danger error"
+        >
+          <div *ngIf="form.controls['nag'].errors.required">
+            Nag obbligatorio.
+          </div>
+          <div *ngIf="form.controls['nag'].errors.pattern">
+            Nag è un campo numerico.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div class="form-group" [formGroup]="form">
+        <label for="cliente">Cliente</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nomeCliente"
+          id="cliente"
+          name="Cliente"
+          [readonly]="!checkAvailable()"
+        />
+
+        <div
+          *ngIf="
+            form.controls['nomeCliente'].invalid &&
+            (form.controls['nomeCliente'].dirty ||
+              form.controls['nomeCliente'].touched)
+          "
+          class="alert alert-danger error"
+        >
+          <div *ngIf="form.controls['nomeCliente'].errors.required">
+            Inserire nome.
+          </div>
+          <div *ngIf="form.controls['nomeCliente'].errors.pattern">
+            Inserire solo lettere.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-3">
+      <div class="form-group" [formGroup]="form">
+        <label for="dp">Data Di Nascita</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            placeholder="yyyy-mm-dd"
+            name="dp"
+            [minDate]="{ day: 1, month: 1, year: 1930 }"
+            placement="bottom"
+            [positionTarget]="buttonEl"
+            formControlName="data"
+            [readonly]="!checkDate()"
+            ngbDatepicker
+            #d="ngbDatepicker"
+          />
+
+          <div class="input-group-append">
+            <button
+              #buttonEl
+              class="btn btn-outline-secondary calendar"
+              (click)="d.toggle()"
+              type="button"
+            ></button>
+            <button
+              class="btn btn-outline-secondary clear"
+              (click)="clear()"
+              type="button"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col align-self-end">
+      <div class="form-group">
+        <button
+          type="submit"
+          name="submit"
+          class="btn btn-primary btn-form shadow"
+          [disabled]="form.invalid"
+          (click)="
+            serv.getClienti(
+              form.value.nag,
+              form.value.filiale,
+              form.value.nomeCliente,
+              form.value.data
+            )
+          "
+        >
+          Ricerca
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

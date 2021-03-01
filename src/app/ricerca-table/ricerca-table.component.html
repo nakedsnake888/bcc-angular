@@ -1,0 +1,33 @@
+<div class="container">
+  <p *ngIf="serv.clienti.length === 0" class="text-center">
+    Non sono presenti elementi da mostrare.
+  </p>
+  <table class="table" *ngIf="serv.clienti.length !== 0">
+    <thead>
+      <tr>
+        <th style="text-align: center">Nome</th>
+        <th style="text-align: center">Nag</th>
+        <th style="text-align: center">Data di Nascita</th>
+        <th style="text-align: center">Dettagli</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of serv.getPaginatedClienti(page, pageSize)">
+        <td style="text-align: center">{{ cliente.nome }}</td>
+        <td style="text-align: center">{{ cliente.nag }}</td>
+        <td style="text-align: center">{{ cliente.dataNascita }}</td>
+        <td style="text-align: center">
+          <fa-icon
+            size="lg"
+            class="icon"
+            [routerLink]="[
+              '',
+              { outlets: { modal: ['dettagli', cliente.id] } }
+            ]"
+            [icon]="cliente.confermato ? faSearchPlus : faCaretSquareDown"
+          ></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
